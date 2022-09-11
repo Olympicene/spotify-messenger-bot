@@ -1,0 +1,19 @@
+{
+  "name": "spotify-messenger-bot",
+  "version": "1.0.0",
+  "description": "Messenger bot thats adds one song to a spotify playlist per person, per day.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Olympicene/spotify-messenger-bot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Olympicene/spotify-messenger-bot/issues"
+  },
+  "homepage": "https://github.com/Olympicene/spotify-messenger-bot#readme"
+}
