@@ -6,6 +6,7 @@
   "scripts": {
     "test": "node index.js"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Olympicene/spotify-messenger-bot.git"
@@ -15,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/Olympicene/spotify-messenger-bot/issues"
   },
-  "homepage": "https://github.com/Olympicene/spotify-messenger-bot#readme"
+  "homepage": "https://github.com/Olympicene/spotify-messenger-bot#readme",
+  "dependencies": {
+    "app-root-path": "^3.1.0",
+    "es6-promisify": "^7.0.0",
+    "facebook-chat-api": "github:kb2ateam/facebook-chat-api"
+  }
 }
