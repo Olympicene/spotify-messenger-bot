@@ -1,6 +1,7 @@
 import appRoot from 'app-root-path';
 import { promisify } from 'es6-promisify';
 import config from './database/config.js';
+import EventHandler from './src/EventHandler.js';
 import FBchat from 'facebook-chat-api';
 import fs from 'fs';
 
@@ -21,4 +22,6 @@ api.listenMqtt((err, event) => {
   if (err) return console.error(err);
 
   if (config.DEBUG) console.log(event);
+
+  EventHandler(event, api);
 });

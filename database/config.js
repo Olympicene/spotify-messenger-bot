@@ -7,9 +7,11 @@ const apiOptions = {
 
 //threadIDs of groupchats/chats its allowed in
 const allowed_threads = [
-  "100085491676984",
+  "100085302326637",
 ];
 
-const DEBUG = true;
+const playlist_ID = '3ntpIImhrnrk0lWLCCLtDU';
 
-export default {apiOptions, allowed_threads, DEBUG}
+const DEBUG = false;
+
+export default {apiOptions, allowed_threads, DEBUG, playlist_ID}

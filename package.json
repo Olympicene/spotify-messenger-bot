@@ -19,7 +19,10 @@
   "homepage": "https://github.com/Olympicene/spotify-messenger-bot#readme",
   "dependencies": {
     "app-root-path": "^3.1.0",
+    "dotenv": "^16.0.2",
     "es6-promisify": "^7.0.0",
-    "facebook-chat-api": "github:kb2ateam/facebook-chat-api"
+    "facebook-chat-api": "github:kb2ateam/facebook-chat-api",
+    "node-localstorage": "^2.2.1",
+    "spotify-web-api-node": "^5.0.2"
   }
 }
