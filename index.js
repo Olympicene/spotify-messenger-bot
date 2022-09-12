@@ -25,3 +25,19 @@ api.listenMqtt((err, event) => {
 
   EventHandler(event, api);
 });
+
+//helpful send function
+function send(contents, threadID, replyID) {
+	new Promise((resolve, reject) => {
+	  api.sendMessage(contents, threadID, (err) => {
+		  if (err) {
+			reject(err);
+			return;
+		  }
+  
+		  resolve(`message sent`);
+		}, replyID);
+	});
+  }
+
+export default send;

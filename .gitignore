@@ -1,6 +1,9 @@
 # Facebook Appstate
 database/appstate.json
 /scratch
+/media
+image.png
+audio.mp3
 
 # Logs
 logs

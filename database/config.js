@@ -12,6 +12,6 @@ const allowed_threads = [
 
 const playlist_ID = '3ntpIImhrnrk0lWLCCLtDU';
 
-const DEBUG = false;
+const DEBUG = true;
 
 export default {apiOptions, allowed_threads, DEBUG, playlist_ID}

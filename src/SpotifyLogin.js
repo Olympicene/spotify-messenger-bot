@@ -12,18 +12,19 @@ function currentTime() {
 
 async function getSpotifyToken() {
   //initialze object
+  let data, expire_date;
   let credentials = {
     redirectUri: 'https://example.com/callback',
     clientId: process.env.SPOTIFY_CLIENT_ID,
     clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
   };
 
-  const spotifyApi = new SpotifyWebApi(credentials); //login credentials
+  let spotifyApi = new SpotifyWebApi(credentials); //login credentials
 
   //if token does not exist
   if (localStorage.getItem('SPOTIFY_REFRESH_TOKEN') === null) { 
     try {
-      let data = await spotifyApi.authorizationCodeGrant(process.env.SPOTIFY_AUTH_CODE);
+      data = await spotifyApi.authorizationCodeGrant(process.env.SPOTIFY_AUTH_CODE);
 
       console.log(data)
 
@@ -31,7 +32,7 @@ async function getSpotifyToken() {
 
       localStorage.setItem('SPOTIFY_REFRESH_TOKEN', data.body['refresh_token']);
 
-      let expire_date = currentTime() + data.body['expires_in'];
+      expire_date = currentTime() + data.body['expires_in'];
       localStorage.setItem('SPOTIFY_TOKEN_EXPIRE_TIME', expire_date);
 
       await spotifyApi.setRefreshToken(localStorage.getItem(`SPOTIFY_REFRESH_TOKEN`)); //set access token
@@ -42,8 +43,24 @@ async function getSpotifyToken() {
 
   //if token has expired
   } else if (currentTime() > parseInt(localStorage.getItem('SPOTIFY_TOKEN_EXPIRE_TIME'))) {
+    console.log('attempting to refresh token.')
     try {
-      await spotifyApi.refreshAccessToken()
+      let credentials = {
+        redirectUri: 'https://example.com/callback',
+        clientId: process.env.SPOTIFY_CLIENT_ID,
+        clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+        refreshToken: localStorage.getItem(`SPOTIFY_REFRESH_TOKEN`),
+      };
+
+      spotifyApi = new SpotifyWebApi(credentials);
+      
+      data = await spotifyApi.refreshAccessToken();
+      localStorage.setItem('SPOTIFY_ACCESS_TOKEN', data.body['access_token']);
+      
+      expire_date = currentTime() + data.body['expires_in'];
+      localStorage.setItem('SPOTIFY_TOKEN_EXPIRE_TIME', expire_date);
+
+      console.log('successfully refreshed token.')
 
     } catch (err) {
       console.error(`Could not get refresh access token: ${err}`);
@@ -51,6 +68,7 @@ async function getSpotifyToken() {
   }
 
   await spotifyApi.setAccessToken(localStorage.getItem(`SPOTIFY_ACCESS_TOKEN`)); //set access token
+
 
   return spotifyApi;
 }
