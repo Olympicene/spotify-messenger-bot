@@ -12,6 +12,8 @@ const allowed_threads = [
 
 const playlist_ID = '3ntpIImhrnrk0lWLCCLtDU';
 
-const DEBUG = true;
+const DEBUG = false;
 
-export default {apiOptions, allowed_threads, DEBUG, playlist_ID}
+const timeout_milliseconds = 86400000;
+
+export default {apiOptions, allowed_threads, DEBUG, playlist_ID, timeout_milliseconds}

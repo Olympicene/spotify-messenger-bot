@@ -23,7 +23,7 @@ api.listenMqtt((err, event) => {
 
   if (config.DEBUG) console.log(event);
 
-  EventHandler(event, api);
+  EventHandler(event);
 });
 
 //helpful send function
