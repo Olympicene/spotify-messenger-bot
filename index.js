@@ -2,7 +2,9 @@ import appRoot from 'app-root-path';
 import { promisify } from 'es6-promisify';
 import config from './database/config.js';
 import EventHandler from './src/EventHandler.js';
+import Timeout from './src/Timeout.js';
 import FBchat from 'facebook-chat-api';
+import schedule from 'node-schedule'
 import fs from 'fs';
 
 //promisify login
@@ -25,6 +27,11 @@ api.listenMqtt((err, event) => {
 
   EventHandler(event);
 });
+
+//reset timeout every night
+schedule.scheduleJob('0 0 * * *', () => {
+	Timeout.clearTimeout();
+})
 
 //helpful send function
 function send(contents, threadID, replyID) {

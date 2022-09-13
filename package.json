@@ -24,6 +24,7 @@
     "es6-promisify": "^7.0.0",
     "facebook-chat-api": "github:kb2ateam/facebook-chat-api",
     "node-localstorage": "^2.2.1",
+    "node-schedule": "^2.1.0",
     "spotify-web-api-node": "^5.0.2",
     "stream": "^0.0.2"
   }

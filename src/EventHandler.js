@@ -3,6 +3,8 @@ import addToPlaylist from './AddToPlaylist.js';
 import checkTimeout from './CheckTimeout.js';
 import linkToPlaylist from './LinkToPlaylist.js';
 import help from './Help.js';
+import reset from './Reset.js';
+
 
 async function EventHandler(event) {
   let threadIDs = config.allowed_threads;
@@ -21,6 +23,8 @@ async function EventHandler(event) {
     checkTimeout(event);
     linkToPlaylist(event);
     help(event);
+    reset(event);
+
   }
 }
 
