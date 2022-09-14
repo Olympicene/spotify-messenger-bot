@@ -29,14 +29,24 @@ api.listenMqtt((err, event) => {
 });
 
 //reset timeout every night
-schedule.scheduleJob('0 0 * * *', () => {
-	Timeout.clearTimeout();
-	let message = {};
-	message.body = `It's a new day! You can now add a song.`
+const getThreadPromise = promisify(api.getThreadList)
 
-	for (const id in config.allowed_threads) {
-		send(message, id)
-	}
+schedule.scheduleJob('0 0 * * *', async () => {
+	//reset timer
+	Timeout.clearTimeout();
+
+	message = {body: `It's a new day! You can now add a song.`};
+
+    //available threads
+    let threadIDs = (await getThreadPromise(10, null, [])).map(
+      (a) => a.threadID
+    );
+
+    for (const id of config.allowed_threads) {
+      if (threadIDs.includes(id)) {
+        send(message, id);
+      }
+    }
 })
 
 
