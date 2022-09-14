@@ -1,5 +1,5 @@
 import config from '../database/config.js';
-import send from '../index.js';
+import {send} from '../index.js';
 
 function help(event) {
   let message = {};

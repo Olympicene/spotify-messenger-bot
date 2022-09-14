@@ -1,5 +1,5 @@
 import Timeout from './Timeout.js';
-import send from '../index.js';
+import {send} from '../index.js';
 
 function checkTimeout(event) {
   let message = {};

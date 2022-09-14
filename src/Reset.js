@@ -1,6 +1,6 @@
 import config from '../database/config.js';
 import Timeout from './Timeout.js';
-import send from '../index.js';
+import {send} from '../index.js';
 
 function reset(event) {
   let message = {};

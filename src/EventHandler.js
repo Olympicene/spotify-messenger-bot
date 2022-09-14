@@ -4,6 +4,7 @@ import checkTimeout from './CheckTimeout.js';
 import linkToPlaylist from './LinkToPlaylist.js';
 import help from './Help.js';
 import reset from './Reset.js';
+import test from './Test.js';
 
 
 async function EventHandler(event) {
@@ -24,7 +25,7 @@ async function EventHandler(event) {
     linkToPlaylist(event);
     help(event);
     reset(event);
-
+    test(event);
   }
 }
 

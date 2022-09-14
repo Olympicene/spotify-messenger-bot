@@ -3,7 +3,7 @@ import download from 'download';
 import config from '../database/config.js';
 import getSpotifyToken from './SpotifyLogin.js';
 import Timeout from './Timeout.js';
-import send from '../index.js';
+import {send} from '../index.js';
 import fs from 'fs';
 
 function isValidUrl(urlString) {

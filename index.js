@@ -31,7 +31,14 @@ api.listenMqtt((err, event) => {
 //reset timeout every night
 schedule.scheduleJob('0 0 * * *', () => {
 	Timeout.clearTimeout();
+	let message = {};
+	message.body = `It's a new day! You can now add a song.`
+
+	for (const id in config.allowed_threads) {
+		send(message, id)
+	}
 })
+
 
 //helpful send function
 function send(contents, threadID, replyID) {
@@ -47,4 +54,4 @@ function send(contents, threadID, replyID) {
 	});
   }
 
-export default send;
+export {send, api};
