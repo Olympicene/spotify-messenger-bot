@@ -10,7 +10,7 @@ function debug(event) {
   if (event.body == '!debug' && adminIDs.includes(event.senderID)) {
 	message.body = 
 	`Peek Timeout
-	${JSON.stringify(Timeout.peek())}`
+	${Timeout.peek()}`
 
 	send(message, event.threadID, event.messageID);
   }

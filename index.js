@@ -39,7 +39,7 @@ schedule.scheduleJob(rule, async () => {
   //reset timer
   Timeout.clearTimeout();
 
-  message = { body: `It's a new day! You can now add a song.` };
+  let message = { body: `It's a new day! You can now add a song.` };
 
   //available threads
   const getThreadPromise = promisify(api.getThreadList);

@@ -27,7 +27,7 @@ class Timeout {
     }
 
     static peek() {
-        return this.timeout;
+        return JSON.stringify(this.timeout);
     }
 }
 
