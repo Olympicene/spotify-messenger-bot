@@ -15,10 +15,12 @@ const admins = [
   "100085302326637",
 ]
 
+const time_zone = 'America/Chicago';
+
 const playlist_ID = '39me5uTuDeAC6jl0f2dM5c';
 
 const DEBUG = false;
 
 const timeout_milliseconds = 86400000;
 
-export default {admins, apiOptions, allowed_threads, DEBUG, playlist_ID, timeout_milliseconds}
+export default {time_zone, admins, apiOptions, allowed_threads, DEBUG, playlist_ID, timeout_milliseconds}

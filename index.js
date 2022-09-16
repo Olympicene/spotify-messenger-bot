@@ -31,7 +31,10 @@ api.listenMqtt((err, event) => {
 //reset timeout every night
 const getThreadPromise = promisify(api.getThreadList)
 
-schedule.scheduleJob('0 0 * * *', async () => {
+let rule = new schedule.RecurrenceRule();
+rule.tz = config.time_zone;
+rule.hour = 0;
+schedule.scheduleJob(rule, async () => {
 	//reset timer
 	Timeout.clearTimeout();
 
