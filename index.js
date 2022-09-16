@@ -35,6 +35,8 @@ api.listenMqtt((err, event) => {
 let rule = new schedule.RecurrenceRule();
 rule.tz = config.time_zone;
 rule.hour = 0;
+rule.minute = 0;
+
 schedule.scheduleJob(rule, async () => {
   //reset timer
   Timeout.clearTimeout();
