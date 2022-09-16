@@ -4,12 +4,14 @@ import config from './database/config.js';
 import EventHandler from './src/EventHandler.js';
 import Timeout from './src/Timeout.js';
 import FBchat from 'facebook-chat-api';
-import schedule from 'node-schedule'
+import schedule from 'node-schedule';
 import fs from 'fs';
 
 //promisify login
 const login = promisify(FBchat);
-const appstate = JSON.parse(fs.readFileSync(appRoot + '/database/appstate.json', 'utf8'));
+const appstate = JSON.parse(
+  fs.readFileSync(appRoot + '/database/appstate.json', 'utf8')
+);
 
 //login
 const api = await login({ appState: appstate }).catch((err) => {
@@ -29,42 +31,44 @@ api.listenMqtt((err, event) => {
 });
 
 //reset timeout every night
-const getThreadPromise = promisify(api.getThreadList)
 
 let rule = new schedule.RecurrenceRule();
 rule.tz = config.time_zone;
 rule.hour = 0;
 schedule.scheduleJob(rule, async () => {
-	//reset timer
-	Timeout.clearTimeout();
+  //reset timer
+  Timeout.clearTimeout();
 
-	message = {body: `It's a new day! You can now add a song.`};
+  message = { body: `It's a new day! You can now add a song.` };
 
-    //available threads
-    let threadIDs = (await getThreadPromise(10, null, [])).map(
-      (a) => a.threadID
-    );
+  //available threads
+  const getThreadPromise = promisify(api.getThreadList);
+  let threadIDs = (await getThreadPromise(10, null, [])).map((a) => a.threadID);
 
-    for (const id of config.allowed_threads) {
-      if (threadIDs.includes(id)) {
-        send(message, id);
-      }
+  for (const id of config.allowed_threads) {
+    if (threadIDs.includes(id)) {
+      send(message, id);
     }
-})
-
+  }
+});
 
 //helpful send function
 function send(contents, threadID, replyID) {
-	new Promise((resolve, reject) => {
-	  api.sendMessage(contents, threadID, (err) => {
-		  if (err) {
-			reject(err);
-			return;
-		  }
-  
-		  resolve(`message sent`);
-		}, replyID);
-	});
-  }
+  new Promise((resolve, reject) => {
+    api.sendMessage(
+      contents,
+      threadID,
+      (err) => {
+        if (err) {
+          reject(err);
+          return;
+        }
 
-export {send, api};
+        resolve(`message sent`);
+      },
+      replyID
+    );
+  });
+}
+
+export { send, api };

@@ -25,6 +25,10 @@ class Timeout {
     static clearTimeout() {
         this.timeout = {};
     }
+
+    static peek() {
+        return this.timeout;
+    }
 }
 
 export default Timeout;

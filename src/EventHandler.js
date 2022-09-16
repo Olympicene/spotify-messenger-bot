@@ -5,6 +5,7 @@ import linkToPlaylist from './LinkToPlaylist.js';
 import help from './Help.js';
 import reset from './Reset.js';
 import test from './Test.js';
+import debug from './Debug.js';
 
 
 async function EventHandler(event) {
@@ -26,6 +27,7 @@ async function EventHandler(event) {
     help(event);
     reset(event);
     test(event);
+    debug(event);
   }
 }
 
