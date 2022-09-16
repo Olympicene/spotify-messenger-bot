@@ -9,10 +9,13 @@ const apiOptions = {
 const allowed_threads = [
   "100085302326637",
   "2401681243197992",
+  "5550431638347613",
+  "5008172842621887",
 ];
 
 const admins = [
   "100085302326637",
+  "100066164221694",
 ]
 
 const time_zone = 'America/Chicago';
