@@ -16,6 +16,7 @@ class Timeout {
 	//TODO: check if actually in timeout first
 	static timeLeft(userID) {
         var next_midnight = new Date();
+        next_midnight.toLocaleString('en-US', { timeZone: 'America/Chicago' })
         next_midnight.setHours(24,0,0,0);
 
 		//https://bobbyhadz.com/blog/javascript-convert-milliseconds-to-hours-minutes-seconds
