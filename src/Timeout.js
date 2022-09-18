@@ -16,11 +16,12 @@ class Timeout {
 	//TODO: check if actually in timeout first
 	static timeLeft(userID) {
         var next_midnight = new Date();
-        next_midnight.toLocaleString('en-US', { timeZone: 'America/Chicago' })
+        next_midnight.toLocaleString('en-US', { timeZone: config.time_zone })
         next_midnight.setHours(24,0,0,0);
 
 		//https://bobbyhadz.com/blog/javascript-convert-milliseconds-to-hours-minutes-seconds
-		return new Date(next_midnight - Date.now()).toISOString().slice(11, 19);
+		let CST = new Date(new Date().toLocaleString('en-US', { timeZone: config.time_zone }))
+        return new Date(next_midnight - CST).toISOString().slice(11, 19);
 	}
 
     static clearTimeout() {
