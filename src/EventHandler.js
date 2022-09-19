@@ -6,6 +6,7 @@ import help from './Help.js';
 import reset from './Reset.js';
 import test from './Test.js';
 import debug from './Debug.js';
+import editTimeout from './EditTimeout.js';
 
 
 async function EventHandler(event) {
@@ -28,6 +29,7 @@ async function EventHandler(event) {
     reset(event);
     test(event);
     debug(event);
+    editTimeout(event);
   }
 }
 

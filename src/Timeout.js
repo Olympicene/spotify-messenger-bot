@@ -28,6 +28,10 @@ class Timeout {
         this.timeout = {};
     }
 
+    static editTimeout(timeout) {
+        this.timeout = timeout;
+    }
+
     static peek() {
         return JSON.stringify(this.timeout);
     }
