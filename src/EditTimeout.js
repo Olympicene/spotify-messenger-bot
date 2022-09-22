@@ -13,7 +13,6 @@ async function editTimeout(event) {
     adminIDs.includes(event.senderID)
   ) {
     Timeout.editTimeout(JSON.parse(event.body));
-    console.log('got here')
     message.body = `Changed Timeout.`;
 
     send(message, event.threadID, event.messageID);

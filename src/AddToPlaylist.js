@@ -84,12 +84,6 @@ async function addToPlaylist(event) {
           console.error(error);
         }
       }
-    } else {
-      message = {};
-      message.body = `Sorry you're still in timeout, you can add a new song in ${Timeout.timeLeft(
-        event.senderID
-      )}`;
-      send(message, event.threadID, event.messageID);
     }
   }
 }
