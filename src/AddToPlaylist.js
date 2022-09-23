@@ -3,7 +3,7 @@ import download from 'download';
 import config from '../database/config.js';
 import getSpotifyToken from './SpotifyLogin.js';
 import Timeout from './Timeout.js';
-import {send} from '../index.js';
+import { send } from '../index.js';
 import fs from 'fs';
 
 function isValidUrl(urlString) {
@@ -19,12 +19,12 @@ async function addToPlaylist(event) {
   let message = {};
 
   if (isValidUrl(event.body)) {
-    if (!Timeout.inTimeout(event.senderID)) {
-      let message = {};
-      const url = new URL(event.body);
-      const id = url.pathname.split('/').at(-1);
+    let message = {};
+    const url = new URL(event.body);
+    const id = url.pathname.split('/').at(-1);
 
-      if (url.hostname == 'open.spotify.com' && id.length == 22) {
+    if (url.hostname == 'open.spotify.com' && id.length == 22) {
+      if (!Timeout.inTimeout(event.senderID)) {
         try {
           const spotifyApi = await getSpotifyToken();
           await spotifyApi.addTracksToPlaylist(config.playlist_ID, [
@@ -83,6 +83,12 @@ async function addToPlaylist(event) {
           send(message, event.threadID, event.messageID);
           console.error(error);
         }
+      } else {
+        message = {};
+        message.body = `Sorry you're still in timeout, you can add a new song in ${Timeout.timeLeft(
+          event.senderID
+        )}`;
+        send(message, event.threadID, event.messageID);
       }
     }
   }
