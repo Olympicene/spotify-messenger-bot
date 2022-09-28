@@ -43,44 +43,56 @@ async function addToPlaylist(event) {
 
             message.body = `Added \"${track.name}\" by ${artists}`;
 
-            try {
-              let image = track.album.images[1].url;
+            if (!config.minimal.includes(event.threadID)) {
+              try {
+                let image = track.album.images[1].url;
+
+                try {
+                  fs.unlinkSync(`${appRoot}/image.png`);
+                } catch (error) {}
+
+                fs.writeFileSync(
+                  `${appRoot}/image.png`,
+                  await download(image),
+                  {
+                    flag: 'w',
+                  }
+                );
+
+                message.attachment = [
+                  fs.createReadStream(`${appRoot}/image.png`),
+                ];
+                await send(message, event.threadID, event.messageID);
+              } catch (error) {
+                console.log(error);
+              }
+
+              Timeout.userTimeout(event.senderID);
 
               try {
-                fs.unlinkSync(`${appRoot}/image.png`);
-              } catch (error) {}
+                message = {};
+                let audio = track.preview_url;
 
-              fs.writeFileSync(`${appRoot}/image.png`, await download(image), {
-                flag: 'w',
-              });
+                try {
+                  fs.unlinkSync(`${appRoot}/audio.mp3`);
+                } catch (error) {}
+                fs.writeFileSync(
+                  `${appRoot}/audio.mp3`,
+                  await download(audio),
+                  {
+                    flag: 'w',
+                  }
+                );
 
-              message.attachment = [
-                fs.createReadStream(`${appRoot}/image.png`),
-              ];
+                message.attachment = [
+                  fs.createReadStream(`${appRoot}/audio.mp3`),
+                ];
+                await send(message, event.threadID);
+              } catch (error) {
+                console.log(error);
+              }
+            } else {
               await send(message, event.threadID, event.messageID);
-            } catch (error) {
-              console.log(error);
-            }
-
-            Timeout.userTimeout(event.senderID);
-
-            try {
-              message = {};
-              let audio = track.preview_url;
-
-              try {
-                fs.unlinkSync(`${appRoot}/audio.mp3`);
-              } catch (error) {}
-              fs.writeFileSync(`${appRoot}/audio.mp3`, await download(audio), {
-                flag: 'w',
-              });
-
-              message.attachment = [
-                fs.createReadStream(`${appRoot}/audio.mp3`),
-              ];
-              await send(message, event.threadID);
-            } catch (error) {
-              console.log(error);
             }
           } catch (error) {
             message = {};
