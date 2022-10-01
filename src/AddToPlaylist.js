@@ -92,7 +92,27 @@ async function addToPlaylist(event) {
                 console.log(error);
               }
             } else {
-              await send(message, event.threadID, event.messageID);
+              try {
+                let audio = track.preview_url;
+
+                try {
+                  fs.unlinkSync(`${appRoot}/audio.mp3`);
+                } catch (error) {}
+                fs.writeFileSync(
+                  `${appRoot}/audio.mp3`,
+                  await download(audio),
+                  {
+                    flag: 'w',
+                  }
+                );
+
+                message.attachment = [
+                  fs.createReadStream(`${appRoot}/audio.mp3`),
+                ];
+                await send(message, event.threadID);
+              } catch (error) {
+                console.log(error);
+              }
             }
           } catch (error) {
             message = {};
