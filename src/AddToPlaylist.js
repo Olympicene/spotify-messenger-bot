@@ -112,6 +112,7 @@ async function addToPlaylist(event) {
                 await send(message, event.threadID);
               } catch (error) {
                 console.log(error);
+                await send(message, event.threadID);
               }
             }
           } catch (error) {
