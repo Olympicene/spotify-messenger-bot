@@ -92,6 +92,9 @@ async function addToPlaylist(event) {
                 console.log(error);
               }
             } else {
+
+              Timeout.userTimeout(event.senderID);
+
               try {
                 let audio = track.preview_url;
 
