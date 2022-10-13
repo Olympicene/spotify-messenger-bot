@@ -92,6 +92,9 @@ async function addToPlaylist(event) {
                 console.log(error);
               }
             } else {
+
+              Timeout.userTimeout(event.senderID);
+
               try {
                 let audio = track.preview_url;
 
@@ -112,6 +115,7 @@ async function addToPlaylist(event) {
                 await send(message, event.threadID);
               } catch (error) {
                 console.log(error);
+                await send(message, event.threadID);
               }
             }
           } catch (error) {
