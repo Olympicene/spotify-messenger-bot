@@ -38,18 +38,22 @@ rule.hour = 0;
 rule.minute = 0;
 
 schedule.scheduleJob(rule, async () => {
-  //reset timer
-  Timeout.clearTimeout();
+  if (config.notification) {
+    //reset timer
+    Timeout.clearTimeout();
 
-  let message = { body: `It's a new day! You can now add a song.` };
+    let message = { body: `It's a new day! You can now add a song.` };
 
-  //available threads
-  const getThreadPromise = promisify(api.getThreadList);
-  let threadIDs = (await getThreadPromise(10, null, [])).map((a) => a.threadID);
+    //available threads
+    const getThreadPromise = promisify(api.getThreadList);
+    let threadIDs = (await getThreadPromise(10, null, [])).map(
+      (a) => a.threadID
+    );
 
-  for (const id of config.allowed_threads) {
-    if (threadIDs.includes(id)) {
-      send(message, id);
+    for (const id of config.allowed_threads) {
+      if (threadIDs.includes(id)) {
+        send(message, id);
+      }
     }
   }
 });
