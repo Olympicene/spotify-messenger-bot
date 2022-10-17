@@ -38,9 +38,10 @@ rule.hour = 0;
 rule.minute = 0;
 
 schedule.scheduleJob(rule, async () => {
+  //reset timer
+  Timeout.clearTimeout();
+
   if (config.notification) {
-    //reset timer
-    Timeout.clearTimeout();
 
     let message = { body: `It's a new day! You can now add a song.` };
 
