@@ -57,6 +57,7 @@ schedule.scheduleJob(rule, async () => {
       }
     }
   }
+  process.exit(1);
 });
 
 //helpful send function
