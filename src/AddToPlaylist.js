@@ -47,10 +47,12 @@ async function addToPlaylist(event) {
               try {
                 let image = track.album.images[1].url;
 
+                // delete image 
                 try {
                   fs.unlinkSync(`${appRoot}/image.png`);
                 } catch (error) {}
 
+                //write new image
                 fs.writeFileSync(
                   `${appRoot}/image.png`,
                   await download(image),
@@ -59,10 +61,12 @@ async function addToPlaylist(event) {
                   }
                 );
 
+                // send message
                 message.attachment = [
                   fs.createReadStream(`${appRoot}/image.png`),
                 ];
-                await send(message, event.threadID, event.messageID);
+
+                send(message, event.threadID, event.messageID);
               } catch (error) {
                 console.log(error);
               }
@@ -72,10 +76,13 @@ async function addToPlaylist(event) {
               try {
                 message = {};
                 let audio = track.preview_url;
-
+                
+                // delete audio
                 try {
                   fs.unlinkSync(`${appRoot}/audio.mp3`);
                 } catch (error) {}
+
+                // add audio
                 fs.writeFileSync(
                   `${appRoot}/audio.mp3`,
                   await download(audio),
@@ -84,23 +91,29 @@ async function addToPlaylist(event) {
                   }
                 );
 
+                // attach audio to message and send
                 message.attachment = [
                   fs.createReadStream(`${appRoot}/audio.mp3`),
                 ];
-                await send(message, event.threadID);
+                
+                send(message, event.threadID);
               } catch (error) {
                 console.log(error);
               }
             } else {
 
+              // minimal version only audio
               Timeout.userTimeout(event.senderID);
 
               try {
                 let audio = track.preview_url;
 
+                // delete audio
                 try {
                   fs.unlinkSync(`${appRoot}/audio.mp3`);
                 } catch (error) {}
+
+                // create audio file
                 fs.writeFileSync(
                   `${appRoot}/audio.mp3`,
                   await download(audio),
@@ -109,15 +122,19 @@ async function addToPlaylist(event) {
                   }
                 );
 
+                // send audio
                 message.attachment = [
                   fs.createReadStream(`${appRoot}/audio.mp3`),
                 ];
+
                 await send(message, event.threadID);
+
               } catch (error) {
                 console.log(error);
                 await send(message, event.threadID);
               }
             }
+
           } catch (error) {
             message = {};
             message.body =
@@ -125,6 +142,7 @@ async function addToPlaylist(event) {
             send(message, event.threadID, event.messageID);
             console.error(error);
           }
+
         } else {
           message = {};
           message.body = `Sorry you're still in timeout, you can add a new song in ${Timeout.timeLeft(
@@ -132,6 +150,7 @@ async function addToPlaylist(event) {
           )}`;
           send(message, event.threadID, event.messageID);
         }
+        
       } else {
         message = {};
         message.body = `We can't accept this ${path_type}.`;
