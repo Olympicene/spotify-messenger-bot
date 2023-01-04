@@ -11,6 +11,10 @@ function help(event) {
     !link - link to playlist
     !timeout - check if you are in timeout
     [spotify link] - add song to playlist
+    \n
+    Admin-Only Commands:
+    !debug - show list of timeout ids
+    [debug object] - change timeout id object
     `;
     send(message, event.threadID, event.messageID);
   }
