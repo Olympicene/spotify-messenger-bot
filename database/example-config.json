@@ -1,14 +1,53 @@
 [
 	{
-		"threadID": "",
+		"threadID": "100085302326637",
+		"adminIDs": [
+			"100085302326637",
+  			"100066164221694"
+		],
+		"isMinimalVersion": "true",
+		"notification": "false",
+		"timezone": "America/Chicago",
+		"playlistID": "39me5uTuDeAC6jl0f2dM5c",
+		"DEBUG": "false",
+		"timeoutMS": "86400000"
+	},
+	{
+		"threadID": "2401681243197992",
+		"adminIDs": [
+			"100085302326637",
+  			"100066164221694"
+		],
+		"isMinimalVersion": "false",
+		"notification": "false",
+		"timezone": "America/Chicago",
+		"playlistID": "39me5uTuDeAC6jl0f2dM5c",
+		"DEBUG": "false",
+		"timeoutMS": "86400000"
+	},
+	{
+		"threadID": "5550431638347613",
+		"adminIDs": [
+			"100085302326637",
+  			"100066164221694"
+		],
+		"isMinimalVersion": "false",
+		"notification": "false",
+		"timezone": "America/Chicago",
+		"playlistID": "39me5uTuDeAC6jl0f2dM5c",
+		"DEBUG": "false",
+		"timeoutMS": "86400000"
+	},
+	{
+		"threadID": "5008172842621887",
 		"adminIDs": [
 			
 		],
-		"isMinimalVersion": "",
-		"notification": "",
-		"timezone": "",
-		"playlistID": "",
-		"DEBUG": "",
-		"timeoutMS": ""
+		"isMinimalVersion": "true",
+		"notification": "false",
+		"timezone": "America/Chicago",
+		"playlistID": "39me5uTuDeAC6jl0f2dM5c",
+		"DEBUG": "false",
+		"timeoutMS": "86400000"
 	}
 ]
