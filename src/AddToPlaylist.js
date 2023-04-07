@@ -4,6 +4,7 @@ import config from '../database/config.js';
 import getSpotifyToken from './SpotifyLogin.js';
 import Timeout from './Timeout.js';
 import { send } from '../index.js';
+import { tall } from 'tall';
 import fs from 'fs';
 
 function isValidUrl(urlString) {
@@ -20,7 +21,14 @@ async function addToPlaylist(event) {
 
   if (isValidUrl(event.body)) {
     let message = {};
-    const url = new URL(event.body);
+    let url = new URL(event.body);
+
+    // unshorten spotify.link
+    if(url.hostname == 'spotify.link') {
+      url = new URL(await tall(event.body))
+    }
+
+
     const id = url.pathname.split('/').at(-1);
     const path_type = url.pathname.split('/').at(1);
 
