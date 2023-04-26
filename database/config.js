@@ -13,7 +13,7 @@ const allowed_threads = [
   "5008172842621887",
 ];
 
-const admins = [
+  const admins = [
   "100085302326637",
   "100066164221694",
 ]

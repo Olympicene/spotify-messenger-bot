@@ -33,22 +33,20 @@ api.listenMqtt((err, event) => {
 //reset timeout every night
 
 let rule = new schedule.RecurrenceRule();
-rule.tz = config.time_zone;
-rule.hour = 0;
-rule.minute = 0;
+rule = { ...rule, tz: config.time_zone, hour: 0, minute: 0 };
+
 
 schedule.scheduleJob(rule, async () => {
   //reset timer
   Timeout.clearTimeout();
 
   if (config.notification) {
-
     let message = { body: `It's a new day! You can now add a song.` };
 
     //available threads
     const getThreadPromise = promisify(api.getThreadList);
     let threadIDs = (await getThreadPromise(10, null, [])).map(
-      (a) => a.threadID
+      (thread) => thread.threadID
     );
 
     for (const id of config.allowed_threads) {
@@ -57,16 +55,14 @@ schedule.scheduleJob(rule, async () => {
       }
     }
   }
-  
+
   process.exit(1);
 });
 
 //helpful send function
 function send(contents, threadID, replyID) {
   new Promise((resolve, reject) => {
-    api.sendMessage(
-      contents,
-      threadID,
+    api.sendMessage(contents, threadID,
       (err) => {
         if (err) {
           reject(err);
